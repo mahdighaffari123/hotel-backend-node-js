@@ -14,7 +14,12 @@ router.use(authController.protect);
 
 router.post("/updatePassword", authController.updatePassword);
 
-router.post("/updateMe", userController.updateMe);
+router.post(
+  "/updateMe",
+  userController.uploadUserPhoto,
+  userController.resizeUserPhoto,
+  userController.updateMe
+);
 
 router.post("/deleteMe", userController.deleteMe);
 
@@ -25,5 +30,11 @@ router.use(authController.restrictTo("admin"));
 router.get("/", userController.getAllUsers);
 
 router.post("/createUser", userController.createUser);
+
+router
+  .route("/:id")
+  .get(userController.getUser)
+  .post(userController.updateUser)
+  .delete(userController.deleteUser);
 
 module.exports = router;

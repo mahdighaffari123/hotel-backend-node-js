@@ -11,6 +11,9 @@ const userSchema = mongoose.Schema({
     type: String,
     required: [true, "Please insert your Last Name"],
   },
+  photo: {
+    type: String,
+  },
   email: {
     type: String,
     required: [true, "Please provide your Email"],
