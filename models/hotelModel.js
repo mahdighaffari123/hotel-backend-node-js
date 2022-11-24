@@ -47,3 +47,7 @@ const hotelSchema = mongoose.Schema({
     required: [true, "Please enter the hotel description"],
   },
 });
+
+const Hotel = mongoose.model("Hotel", hotelSchema);
+
+module.exports = Hotel;
