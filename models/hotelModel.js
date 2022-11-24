@@ -21,6 +21,11 @@ const hotelSchema = mongoose.Schema({
     type: Number,
     default: 0,
   },
+  coverImage: {
+    type: String,
+    required: [true, "Please provide an image for hotel main image"],
+  },
+  images: [String],
   priceDiscount: {
     type: Number,
     validate: {

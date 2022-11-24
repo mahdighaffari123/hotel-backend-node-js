@@ -17,7 +17,11 @@ router.post("/createHotel", hotelController.createHotel);
 
 router
   .route("/:id")
-  .post(hotelController.updateHotel)
+  .post(
+    hotelController.uploadHotelImages,
+    hotelController.resizeHotelImages,
+    hotelController.updateHotel
+  )
   .delete(hotelController.deleteHotel);
 
 module.exports = router;
