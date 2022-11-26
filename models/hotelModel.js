@@ -22,6 +22,11 @@ const hotelSchema = mongoose.Schema({
     type: Number,
     default: 0,
   },
+  coverImage: {
+    type: String,
+    required: [true, "Please provide an image for hotel main image"],
+  },
+  images: [String],
   priceDiscount: {
     type: Number,
     validate: {
@@ -47,10 +52,6 @@ const hotelSchema = mongoose.Schema({
     type: String,
     required: [true, "Please enter the hotel description"],
   },
-});
-
-hotelSchema.pre("save", function (next) {
-  this.slug = slugify(this.name, { lower: true });
 });
 
 const Hotel = mongoose.model("Hotel", hotelSchema);
