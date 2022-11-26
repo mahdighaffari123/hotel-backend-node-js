@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { default: slugify } = require("slugify");
 const validator = require("validator");
 const hotelSchema = mongoose.Schema({
   name: {
@@ -47,3 +48,11 @@ const hotelSchema = mongoose.Schema({
     required: [true, "Please enter the hotel description"],
   },
 });
+
+hotelSchema.pre("save", function (next) {
+  this.slug = slugify(this.name, { lower: true });
+});
+
+const Hotel = mongoose.model("Hotel", hotelSchema);
+
+module.exports = Hotel;
