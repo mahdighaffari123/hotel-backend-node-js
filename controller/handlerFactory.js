@@ -1,10 +1,13 @@
 const APIFeatures = require("../utils/apiFeatures");
 const appError = require("../utils/appError");
 const catchAsync = require("../utils/catchAsync");
+const getNowTime = require("../utils/getNowTime");
+const getToday = require("../utils/getToday");
 
 exports.getAll = (model) =>
   catchAsync(async (req, res, next) => {
     // To allow for nested get reviews on tour (hack)
+
     let filter = {};
     if (req.params.tourId) filter = { tour: req.params.tourId };
 

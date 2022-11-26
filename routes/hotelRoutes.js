@@ -1,19 +1,28 @@
 const express = require("express");
 const hotelController = require("../controller/hotelController");
 const authController = require("../controller/authController");
+const reviewRouter = require("../routes/reviewRoutes");
 const router = express.Router();
-
-router.get("/", hotelController.getAllHotels);
 
 router.get("/:id", hotelController.getHotel);
 
-// Check if user is logged in
 router.use(authController.protect);
 
-// Check if the user role is admin
+router.use(hotelController.setHotelUserIds);
+
+router.use("/:parentId/reviews", reviewRouter);
+
 router.use(authController.restrictTo("admin"));
 
-router.post("/createHotel", hotelController.createHotel);
+router.get("/", hotelController.getAllHotels);
+
+router.post(
+  "/createHotel",
+  hotelController.uploadHotelImages,
+  hotelController.resizeHotelImages,
+  hotelController.setHotelUserIds,
+  hotelController.createHotel
+);
 
 router
   .route("/:id")

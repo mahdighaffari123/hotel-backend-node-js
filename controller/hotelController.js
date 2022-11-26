@@ -5,6 +5,13 @@ const Hotel = require("../models/hotelModel");
 const appError = require("../utils/appError");
 const catchAsync = require("../utils/catchAsync");
 
+exports.setHotelUserIds = (req, res, next) => {
+  // Allow nested routes
+  if (!req.body.catType) req.body.catType = "HotelReview";
+  console.log(req.body);
+  next();
+};
+
 const multerStorage = multer.memoryStorage();
 
 const multerFilter = (req, file, cb) => {
@@ -20,7 +27,8 @@ exports.uploadHotelImages = upload.fields([
 ]);
 
 exports.resizeHotelImages = catchAsync(async (req, res, next) => {
-  if (!req.files.coverImage || !req.files.images) next();
+  if (!req.files.coverImage || !req.files.images)
+    next(new appError("coverImage or images for hotels are empty"));
 
   // Cover Image
   req.body.coverImage = `hotel-${req.params.id}-${Date.now()}-cover.jpeg`;
@@ -51,7 +59,7 @@ exports.resizeHotelImages = catchAsync(async (req, res, next) => {
 
 exports.getAllHotels = factory.getAll(Hotel);
 
-exports.getHotel = factory.getOne(Hotel);
+exports.getHotel = factory.getOne(Hotel, { path: "reviews" });
 
 exports.createHotel = factory.createOne(Hotel);
 
