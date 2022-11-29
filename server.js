@@ -5,9 +5,12 @@ const dotenv = require("dotenv");
 dotenv.config({ path: "./config.env" });
 
 const app = require("./app");
+const { getLogger } = require("nodemailer/lib/shared");
 
 const DB = process.env.DATABASE;
 
+//todo add password to database
+//todo implement eslint
 mongoose
   .connect(DB, {
     useNewUrlParser: true,

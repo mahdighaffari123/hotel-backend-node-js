@@ -10,6 +10,7 @@ const globalErrorHandler = require("./controller/errorController");
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+//todo make dynamic routing
 // Routes
 app.use("/api/users", userRoutes);
 app.use("/api/hotels", hotelRoutes);
